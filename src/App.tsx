@@ -6,6 +6,7 @@ import Landing from "./pages/landing";
 import Home from "./pages/home";
 import Header from "./components/header";
 import { AuthProvider } from "./providers/AuthProvider";
+import { Toaster } from "sonner";
 
 function Layout() {
   return (
@@ -14,6 +15,7 @@ function Layout() {
         <Header />
         <Outlet />
       </main>
+      <Toaster />
     </AuthProvider>
   );
 }

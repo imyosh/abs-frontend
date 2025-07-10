@@ -19,6 +19,8 @@ import { apiReserve } from "@/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
+import { toast } from "sonner";
+
 export default function ReserveParkingCard() {
   const [open, setOpen] = useState(false);
 
@@ -32,6 +34,15 @@ export default function ReserveParkingCard() {
       setOpen(false);
       console.log(data);
       queryClient.invalidateQueries({ queryKey: ["reservations"] });
+    },
+
+    // eslint-disable-next-line
+    onError: (error: any) => {
+      console.log(error);
+      setOpen(false);
+      if (error.response?.data?.message)
+        return toast.error(error.response?.data?.message);
+      toast.error("Something went wrong!");
     },
   });
 

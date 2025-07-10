@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { CheckIcon, Clock10Icon, CopyIcon } from "lucide-react";
 import CancelAlert from "./cancel-alert";
 
@@ -11,9 +11,17 @@ export interface ReservationCardProps {
 function SingleReservationCard({ reservation }: { reservation: ParkingSpot }) {
   const [copied, setCopied] = useState(false);
   const code = reservation.reservation_code || "-";
-  const reservedDate = reservation.reserved_at
-    ? new Date(reservation.reserved_at).toLocaleString()
-    : "N/A";
+
+  const { reservedDate, checkeinDate } = useMemo(() => {
+    return {
+      reservedDate: reservation.reserved_at
+        ? new Date(reservation.reserved_at).toLocaleString()
+        : "N/A",
+      checkeinDate: reservation.checkin_at
+        ? new Date(reservation.checkin_at).toLocaleString()
+        : "N/A",
+    };
+  }, [reservation]);
 
   const handleCopy = () => {
     if (reservation.reservation_code) {
@@ -42,7 +50,7 @@ function SingleReservationCard({ reservation }: { reservation: ParkingSpot }) {
       {/* Card Body */}
       <div className="flex flex-col gap-4 px-6 py-5">
         {/* Reservation Code */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <span className="font-medium text-gray-700 dark:text-gray-200 w-40">
             Reservation Code
           </span>
@@ -66,8 +74,29 @@ function SingleReservationCard({ reservation }: { reservation: ParkingSpot }) {
             </Button>
           </div>
         </div>
+
+        {/* Checked In Status */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <span className="font-medium text-gray-700 dark:text-gray-200 w-40">
+            Status
+          </span>
+          <div className="flex items-center gap-2">
+            {reservation.checked_in ? (
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">
+                <div className="size-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium">Checked In</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full">
+                <div className="size-2 bg-orange-500 rounded-full"></div>
+                <span className="text-sm font-medium">Not Checked In</span>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Reserved At */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <span className="font-medium text-gray-700 dark:text-gray-200 w-40">
             Reserved At
           </span>
@@ -75,19 +104,20 @@ function SingleReservationCard({ reservation }: { reservation: ParkingSpot }) {
             {reservedDate} <Clock10Icon className="size-4 opacity-70" />
           </span>
         </div>
-        {/* Checked In Status */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+
+        {/* Reserved At */}
+        <div className="flex items-center gap-2 sm:gap-4">
           <span className="font-medium text-gray-700 dark:text-gray-200 w-40">
-            Checked In
+            Checked In At
           </span>
-          <span
-            className={
-              reservation.checked_in
-                ? "text-green-600 font-semibold"
-                : "text-red-500 font-semibold"
-            }
-          >
-            {reservation.checked_in ? "Yes" : "No"}
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            {reservation.checkin_at ? (
+              <>
+                {checkeinDate} <Clock10Icon className="size-4 opacity-70" />
+              </>
+            ) : (
+              checkeinDate
+            )}
           </span>
         </div>
       </div>

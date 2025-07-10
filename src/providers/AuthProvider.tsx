@@ -46,7 +46,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      console.log("fetching user");
       const user = await apiGetUser();
       console.log("user", user);
       if (user) {

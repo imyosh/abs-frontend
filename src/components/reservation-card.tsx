@@ -15,10 +15,22 @@ function SingleReservationCard({ reservation }: { reservation: ParkingSpot }) {
   const { reservedDate, checkeinDate } = useMemo(() => {
     return {
       reservedDate: reservation.reserved_at
-        ? new Date(reservation.reserved_at).toLocaleString()
+        ? new Date(reservation.reserved_at).toLocaleString([], {
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          })
         : "N/A",
       checkeinDate: reservation.checkin_at
-        ? new Date(reservation.checkin_at).toLocaleString()
+        ? new Date(reservation.checkin_at).toLocaleString([], {
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          })
         : "N/A",
     };
   }, [reservation]);

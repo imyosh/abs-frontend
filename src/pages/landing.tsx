@@ -31,7 +31,7 @@ export default function Landing() {
               setLoading(true);
             }}
           >
-            <a href={"/auth/google"}>
+            <a href={"/api/auth/google"}>
               {loading ? <Loader2 className="animate-spin" /> : <GoogleIcon />}
               Login With Google
             </a>

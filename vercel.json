@@ -3,6 +3,10 @@
     {
       "source": "/(.*)",
       "destination": "/index.html"
+    },
+    {
+      "source": "/api/auth/:path*",
+      "destination": "https://abs-backend.hhoon5511.workers.dev/api/auth/:path*"
     }
   ]
 }

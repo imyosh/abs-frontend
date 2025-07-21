@@ -1,7 +1,6 @@
 import { useState } from "react";
 import LandingShap from "../components/landing-shap";
 import { Button } from "../components/ui/button";
-import { BASE_URL } from "../api";
 
 import { Loader2 } from "lucide-react";
 import GoogleIcon from "@/assets/google.svg?react";
@@ -32,7 +31,7 @@ export default function Landing() {
               setLoading(true);
             }}
           >
-            <a href={`${BASE_URL}/auth/google`}>
+            <a href={"/auth/google"}>
               {loading ? <Loader2 className="animate-spin" /> : <GoogleIcon />}
               Login With Google
             </a>

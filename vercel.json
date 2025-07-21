@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    },
-    {
       "source": "/api/auth/google",
       "destination": "https://abs-backend.hhoon5511.workers.dev/api/auth/google"
     }

@@ -1,4 +1,6 @@
 import { useState } from "react";
+
+import { BASE_URL } from "@/api";
 import LandingShap from "../components/landing-shap";
 import { Button } from "../components/ui/button";
 
@@ -31,7 +33,7 @@ export default function Landing() {
               setLoading(true);
             }}
           >
-            <a href={"/api/auth/google"}>
+            <a href={`${BASE_URL}/auth/google`}>
               {loading ? <Loader2 className="animate-spin" /> : <GoogleIcon />}
               Login With Google
             </a>

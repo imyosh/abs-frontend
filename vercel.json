@@ -3,6 +3,10 @@
     {
       "source": "/api/auth/google",
       "destination": "https://abs-backend.hhoon5511.workers.dev/api/auth/google"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
